@@ -8,12 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drivetrain;
 
 public class DriveWithJoy extends CommandBase {
+  Drivetrain drivetrain;
   /**
    * Creates a new DriveWithJoy.
    */
-  public DriveWithJoy() {
+  public DriveWithJoy(Drivetrain drivetrain) {
+    addRequirements(drivetrain);
+    this.drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,6 +29,7 @@ public class DriveWithJoy extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //Change
   }
 
   // Called once the command ends or is interrupted.
