@@ -7,18 +7,46 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
-  /**
-   * Creates a new Drivetrain.
-   */
-  public Drivetrain() {
+	/**
+	 * Creates a new Drivetrain.
+	 */
+	public static Drivetrain drivetrain = null;
+	
+	TalonFX leftDriveMotor1 = new TalonFX(0);
+	TalonFX leftDriveMotor2 = new TalonFX(1);
+	TalonFX rightDriveMotor1 = new TalonFX(2);
+	TalonFX rightDriveMotor2 = new TalonFX(3);
 
-  }
+	public static Drivetrain getInstance() {
+		if(drivetrain == null){
+			drivetrain = new Drivetrain();
+		}
+		return drivetrain;
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	private Drivetrain() {
+
+	}
+
+	public void arcadeDrive(){
+		
+	}
+
+	public void runWheels(double leftSpeed, double rightSpeed){
+		leftDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
+		leftDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
+		rightDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
+		rightDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
+	}
+
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }
