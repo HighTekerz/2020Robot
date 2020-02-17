@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.concurrent.Callable;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
@@ -16,6 +18,8 @@ import frc.robot.subsystems.Throat;
 import frc.robot.subsystems.WheelLooker;
 import frc.robot.subsystems.WheelSpinner;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -38,8 +42,25 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    
+    doThis(() -> {double x; x = 1+1; System.out.print(x);});
+
+    doThisWithReturn(() -> "donezo");
+
+    RunCommand command = null;
   }
 
+  private void doThis(Runnable lambda){
+    lambda.run();
+  }
+
+  private void doThisWithReturn(Callable<String> lambda){
+    try{
+      System.out.print(lambda.call());
+    }catch(Exception ex){
+
+    }
+  }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link

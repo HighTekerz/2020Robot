@@ -38,11 +38,11 @@ public class Drivetrain extends SubsystemBase {
 		
 	}
 
-	public void runWheels(double leftSpeed, double rightSpeed){
+	public void setWheelSpeed(double leftSpeed, double rightSpeed){
 		leftDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
 		leftDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
-		rightDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
-		rightDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
+		rightDriveMotor1.set(ControlMode.PercentOutput, rightSpeed);
+		rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
 	}
 
 	@Override
