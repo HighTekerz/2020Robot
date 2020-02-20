@@ -42,6 +42,10 @@ public class Drivetrain extends SubsystemBase {
 		rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
 	}
 
+	public double getEnc(){
+		return leftDriveMotor1.getSelectedSensorPosition();
+	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
