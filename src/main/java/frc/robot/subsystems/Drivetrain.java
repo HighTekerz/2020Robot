@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.DriveWithJoy;
 
 public class Drivetrain extends SubsystemBase {
 	/**
@@ -31,11 +32,7 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	private Drivetrain() {
-
-	}
-
-	public void arcadeDrive(){
-		
+		setDefaultCommand(new DriveWithJoy());
 	}
 
 	public void setWheelSpeed(double leftSpeed, double rightSpeed){
