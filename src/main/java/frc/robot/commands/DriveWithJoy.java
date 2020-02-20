@@ -17,6 +17,7 @@ public class DriveWithJoy extends CommandBase {
    */
   public DriveWithJoy() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Drivetrain.getInstance());
   }
 
   // Called when the command is initially scheduled.
@@ -27,6 +28,7 @@ public class DriveWithJoy extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Drivetrain.getInstance().setWheelSpeed(Robot.m_robotContainer.getDriverLeftStickY(), Robot.m_robotContainer.getDriverRightStickY());
   }
 
   // Called once the command ends or is interrupted.
