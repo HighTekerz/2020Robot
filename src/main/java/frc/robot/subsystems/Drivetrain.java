@@ -9,8 +9,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.L;
 import frc.robot.commands.DriveWithJoy;
 
 public class Drivetrain extends SubsystemBase {
@@ -23,6 +27,9 @@ public class Drivetrain extends SubsystemBase {
 	TalonFX leftDriveMotor2 = new TalonFX(1);
 	TalonFX rightDriveMotor1 = new TalonFX(2);
 	TalonFX rightDriveMotor2 = new TalonFX(3);
+
+	TalonSRX hogBearer = new TalonSRX(20);
+	PigeonIMU hogEra = new PigeonIMU(hogBearer);
 
 	public static Drivetrain getInstance() {
 		if(drivetrain == null){
@@ -46,8 +53,27 @@ public class Drivetrain extends SubsystemBase {
 		return leftDriveMotor1.getSelectedSensorPosition();
 	}
 
+	double[] yawPitchRollArray = new double[3];
+
+	public double getAngle() {
+	  hogEra.getYawPitchRoll(yawPitchRollArray);
+	  return yawPitchRollArray[0];
+	}
+  
+	public double getPitch(){
+	  hogEra.getYawPitchRoll(yawPitchRollArray);
+	  return yawPitchRollArray[1];
+	}
+  
+	public double getRoll(){
+	  hogEra.getYawPitchRoll(yawPitchRollArray);
+	  return yawPitchRollArray[2];
+	}
+
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
+		L.getInstance().ogSD("Angle", getAngle());
+		L.getInstance().ogSD("Roll", getRoll());
+		L.getInstance().ogSD("Pitch", getPitch());
 	}
 }

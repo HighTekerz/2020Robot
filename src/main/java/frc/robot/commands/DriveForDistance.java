@@ -8,17 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveForDistance extends CommandBase {
 
-  private double ticksToTravel, speed, currentInches, tickTarget;
+  private double ticksToTravel, speed, currentTicks, tickTarget;
+  private boolean foreward;
 
   /**
-   * Drive autonomously for a number of inches
+   * Drive autonomously for a number of ticks
    * 
-   * @param ticksToTravel inches to travel
+   * @param ticksToTravel Ticks to travel
    * @param speed speed to travel at
    */
   public DriveForDistance(double ticksToTravel, double speed) {
@@ -30,8 +30,11 @@ public class DriveForDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    currentInches = Drivetrain.getInstance().getEnc();
-    tickTarget = currentInches + ticksToTravel;
+    currentTicks = Drivetrain.getInstance().getEnc();
+    tickTarget = currentTicks + ticksToTravel;
+    
+    if(speed <= 0 || ticksToTravel <= 0) foreward = false;
+    else foreward = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,9 +51,13 @@ public class DriveForDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    currentInches = Drivetrain.getInstance().getEnc();
-    // if(){
+    currentTicks = Drivetrain.getInstance().getEnc();
+    if(foreward && currentTicks > tickTarget
+    || !foreward && currentTicks < tickTarget){
+      return true;
+    }
+    else{
       return false;
-    // }
+    }
   }
 }
