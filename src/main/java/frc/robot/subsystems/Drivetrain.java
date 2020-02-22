@@ -8,10 +8,15 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.DriveWithJoy;
+import frc.robot.L;
 
 public class Drivetrain extends SubsystemBase {
 	/**
@@ -19,10 +24,13 @@ public class Drivetrain extends SubsystemBase {
 	 */
 	public static Drivetrain drivetrain = null;
 	
-	TalonFX leftDriveMotor1 = new TalonFX(0);
+	TalonFX leftDriveMotor1 = new TalonFX(4);
 	TalonFX leftDriveMotor2 = new TalonFX(1);
 	TalonFX rightDriveMotor1 = new TalonFX(2);
 	TalonFX rightDriveMotor2 = new TalonFX(3);
+
+	TalonSRX hogBearer = new TalonSRX(20);
+	PigeonIMU hogEra = new PigeonIMU(hogBearer);
 
 	public static Drivetrain getInstance() {
 		if(drivetrain == null){
@@ -32,18 +40,42 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	private Drivetrain() {
-		setDefaultCommand(new DriveWithJoy());
+		leftDriveMotor2.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 	}
 
 	public void setWheelSpeed(double leftSpeed, double rightSpeed){
-		leftDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
+		// leftDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
 		leftDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
-		rightDriveMotor1.set(ControlMode.PercentOutput, rightSpeed);
-		rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
+		// rightDriveMotor1.set(ControlMode.PercentOutput, rightSpeed);
+		// rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
+	}
+
+	public double getEnc(){
+		return leftDriveMotor2.getSelectedSensorPosition(0);
+	}
+
+	double[] yawPitchRollArray = new double[3];
+
+	public double getAngle() {
+	  hogEra.getYawPitchRoll(yawPitchRollArray);
+	  return yawPitchRollArray[0];
+	}
+  
+	public double getPitch(){
+	  hogEra.getYawPitchRoll(yawPitchRollArray);
+	  return yawPitchRollArray[1];
+	}
+  
+	public double getRoll(){
+		hogEra.getYawPitchRoll(yawPitchRollArray);
+	  	return yawPitchRollArray[2];
 	}
 
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
+		SmartDashboard.putNumber("enc", getEnc());
+		// L.getInstance().ogSD("Angle", getAngle());
+		// L.getInstance().ogSD("Roll", getRoll());
+		// L.getInstance().ogSD("Pitch", getPitch());
 	}
 }
