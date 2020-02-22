@@ -63,7 +63,6 @@ public class RobotContainer {
     // > > > >Example Button< < < <
     // JoystickButton meatStickA = new JoystickButton(meatStick, joyButts.A_BUTTON);
     // meatStickA.whenPressed(new Command());
-
   }
 
   public double getDriverLeftStickX(){
