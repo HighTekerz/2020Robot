@@ -12,27 +12,38 @@ import frc.robot.subsystems.Drivetrain;
 
 public class TurnByDegree extends CommandBase {
 
-  double speed, degreesToTurn, currentAngle, targetAngle;
+  double speed, degreesToTurn, currentDegrees, targetDegrees;
   boolean clockwise;
+  Drivetrain dt = Drivetrain.getInstance();
 
   /**
    * 
    */
-  public TurnByDegree(double degreesToTurn, double speed) {
+  public TurnByDegree(double degreesToTurn, double speed, boolean clockwise) {
     addRequirements(Drivetrain.getInstance());
     this.speed = speed;
     this.degreesToTurn = degreesToTurn;
+    this.clockwise = clockwise;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    currentDegrees = dt.getAngle();
+    if(clockwise){
+      targetDegrees = currentDegrees - Math.abs(degreesToTurn);
+      speed = Math.abs(speed);
+    }
+    else{
+      targetDegrees = currentDegrees + Math.abs(degreesToTurn);
+      speed = -Math.abs(speed);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    dt.setWheelSpeed(-speed, speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +54,13 @@ public class TurnByDegree extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    currentDegrees = dt.getAngle();
+    if(clockwise && currentDegrees <= targetDegrees ||
+      !clockwise && currentDegrees >= targetDegrees){
+        return true;
+    }
+    else {
+      return false;
+    }
   }
 }

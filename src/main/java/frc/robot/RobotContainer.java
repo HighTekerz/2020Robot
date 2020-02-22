@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DriveForDistance;
+import frc.robot.commands.DriveWithJoy;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -35,6 +38,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  private Drivetrain dt = Drivetrain.getInstance(); 
+
   //Meat is driver, Beat is Co-Pilot
   private Joystick meatStick = new Joystick(0);
   private Joystick beatStick = new Joystick(1);
@@ -49,7 +54,7 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
+    dt.setDefaultCommand(new DriveWithJoy());
     configureButtonBindings();
   }
 
@@ -63,6 +68,7 @@ public class RobotContainer {
     // > > > >Example Button< < < <
     // JoystickButton meatStickA = new JoystickButton(meatStick, joyButts.A_BUTTON);
     // meatStickA.whenPressed(new Command());
+    L.getInstance().ogSD("Drive 750 ticks" , new DriveForDistance(-1000, .1));
   }
 
   public double getDriverLeftStickX(){
