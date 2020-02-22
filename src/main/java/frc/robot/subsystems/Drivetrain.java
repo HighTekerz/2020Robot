@@ -66,8 +66,8 @@ public class Drivetrain extends SubsystemBase {
 	}
   
 	public double getRoll(){
-	  hogEra.getYawPitchRoll(yawPitchRollArray);
-	  return yawPitchRollArray[2];
+		hogEra.getYawPitchRoll(yawPitchRollArray);
+	  	return yawPitchRollArray[2];
 	}
 
 	@Override
