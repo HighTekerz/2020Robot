@@ -73,9 +73,9 @@ public class Drivetrain extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("enc", getEnc());
-		// L.getInstance().ogSD("Angle", getAngle());
-		// L.getInstance().ogSD("Roll", getRoll());
-		// L.getInstance().ogSD("Pitch", getPitch());
+		L.ogSD("Encoder", getEnc());
+		L.ogSD("Angle", getAngle());
+		L.ogSD("Roll", getRoll());
+		L.ogSD("Pitch", getPitch());
 	}
 }

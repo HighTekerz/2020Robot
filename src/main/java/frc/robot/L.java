@@ -16,21 +16,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * Add your docs here.
  */
 public class L {
-    
-    private static L l = null;
-
-    public static L getInstance() {
-		if(l == null){
-			l = new L();
-		}
-		return l;
-	}
-
-    public void og(Object data){
+    public static void og(Object data){
         System.out.println(data.toString());
     }
 
-    public void ogSD(String title, Object data){
+    public static void ogSD(String title, Object data){
         if(data instanceof String){
             SmartDashboard.putString(title, (String)data);
         }
