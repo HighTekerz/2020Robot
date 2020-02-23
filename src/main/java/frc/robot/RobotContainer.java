@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.DriveForDistance;
-import frc.robot.commands.DriveWithJoy;
+import frc.robot.commands.Drivetrain.DriveForDistance;
+import frc.robot.commands.Drivetrain.DriveWithJoy;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -38,7 +38,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private Drivetrain dt = Drivetrain.getInstance(); 
+  private Drivetrain dt = Drivetrain.getInstance();
 
   //Meat is driver, Beat is Co-Pilot
   private Joystick meatStick = new Joystick(0);

@@ -5,30 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 
-public class DriveWithJoy extends CommandBase {
+public class SpinDownFlywheels extends CommandBase {
+
+  Shooter shooter = Shooter.getInstance();
+
   /**
-   * Creates a new DriveWithJoy.
+   * Creates a new SpinDownFlywheels.
    */
-  public DriveWithJoy() {
+  public SpinDownFlywheels() {
+    addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Drivetrain.getInstance());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    shooter.stopPid();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Drivetrain.getInstance().setWheelSpeed(Robot.robotContainer.getDriverLeftStickY(), Robot.robotContainer.getDriverRightStickY());
   }
 
   // Called once the command ends or is interrupted.

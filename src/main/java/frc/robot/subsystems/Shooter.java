@@ -7,15 +7,44 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
+
+  private TalonFX leftFlywheel = new TalonFX(749);
+  private TalonFX rightFlywheel = new TalonFX(210);
+
+  public static Shooter shooter;
+
+  public static Shooter getInstance(){
+    if (shooter == null){
+      shooter = new Shooter();
+    }
+    return shooter;
+  }
+
   /**
    * Creates a new Shooter.
    */
-  public Shooter() {
+  private Shooter() {
+  }
+
+  public void setSetpoint(double setpoint){
 
   }
+
+  public void startPid(){
+
+  }
+
+  public void stopPid(){
+    leftFlywheel.set(TalonFXControlMode.Disabled, 0);
+  }
+
+  
 
   @Override
   public void periodic() {
