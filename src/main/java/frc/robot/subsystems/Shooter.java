@@ -13,7 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
-
+  
+  // Unknown Numbers
   private TalonFX leftFlywheel = new TalonFX(749);
   private TalonFX rightFlywheel = new TalonFX(210);
 
@@ -33,7 +34,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setSetpoint(double setpoint){
-
+    
   }
 
   public void startPid(){
