@@ -43,7 +43,7 @@ public class TurnByDegree extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    dt.setWheelSpeed(-speed, speed);
+    dt.driveArcade(0, speed);
   }
 
   // Called once the command ends or is interrupted.

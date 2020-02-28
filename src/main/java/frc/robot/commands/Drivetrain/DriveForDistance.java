@@ -48,7 +48,7 @@ public class DriveForDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.setWheelSpeed(speed, speed);
+    drivetrain.driveArcade(speed, 0);
   }
 
   // Called once the command ends or is interrupted.

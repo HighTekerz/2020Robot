@@ -72,15 +72,15 @@ public class RobotContainer {
   }
 
   public double getDriverLeftStickX(){
-    return meatStick.getX(Hand.kLeft);
+    return meatStick.getRawAxis(0);
   }
 
   public double getDriverLeftStickY(){
-    return meatStick.getY(Hand.kLeft);
+    return meatStick.getRawAxis(1);
   }
 
   public double getDriverRightStickY(){
-    return meatStick.getY(Hand.kRight);
+    return meatStick.getRawAxis(5);
   }
 
   /**
