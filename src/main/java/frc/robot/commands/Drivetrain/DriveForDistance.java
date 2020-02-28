@@ -8,11 +8,13 @@
 package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.L;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveForDistance extends CommandBase {
 
-  private double ticksToTravel, speed, currentTicks, tickTarget;
+  private double speed,
+                         ticksToTravel, currentTicks, tickTarget;
   private boolean foreward;
   private Drivetrain drivetrain = Drivetrain.getInstance();
 
@@ -22,9 +24,15 @@ public class DriveForDistance extends CommandBase {
    * @param ticksToTravel Ticks to travel
    * @param speed speed to travel at
    */
-  public DriveForDistance(double ticksToTravel, double speed) {
+  public DriveForDistance(int ticksToTravel, double speed) {
     addRequirements(drivetrain);
     this.ticksToTravel = ticksToTravel;
+    this.speed = speed;
+  }
+
+  public DriveForDistance(double inchesToTravel, double speed){
+    addRequirements(drivetrain);
+    this.ticksToTravel = inchesToTravel * Drivetrain.TICKS_PER_INCH;
     this.speed = speed;
   }
 
@@ -43,6 +51,7 @@ public class DriveForDistance extends CommandBase {
       speed = Math.abs(speed);
       tickTarget = currentTicks + Math.abs(ticksToTravel);
     }
+    L.ogSD("Tick Target", tickTarget);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

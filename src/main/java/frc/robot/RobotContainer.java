@@ -66,8 +66,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // > > > >Example Button< < < <
-    // JoystickButton meatStickA = new JoystickButton(meatStick, joyButts.A_BUTTON);
-    // meatStickA.whenPressed(new Command());
+    JoystickButton meatStickA = new JoystickButton(meatStick, joyButts.A_BUTTON);
+    meatStickA.whenPressed(new DriveForDistance(1.0, 0.1));
+
     L.ogSD("Drive 750 ticks" , new DriveForDistance(-1000, .1));
   }
 

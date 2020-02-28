@@ -26,18 +26,20 @@ public class Drivetrain extends SubsystemBase {
 	 */
 	public static Drivetrain drivetrain = null;
 	
-	// TalonFX leftDriveMotor1 = new TalonFX(4);
-	// TalonFX leftDriveMotor2 = new TalonFX(1);
-	// TalonFX rightDriveMotor1 = new TalonFX(2);
-	// TalonFX rightDriveMotor2 = new TalonFX(3);
+	// TalonFX leftDriveMotor1 = new TalonFX(4),
+	//  			 leftDriveMotor2 = new TalonFX(1),
+	//  			 rightDriveMotor1 = new TalonFX(2),
+	//   			 rightDriveMotor2 = new TalonFX(3);
 
-	CANSparkMax leftDriveMotor1 = new CANSparkMax(1, MotorType.kBrushless);
-	CANSparkMax leftDriveMotor2 = new CANSparkMax(3, MotorType.kBrushless);
-	CANSparkMax rightDriveMotor1 = new CANSparkMax(2, MotorType.kBrushless);
-	CANSparkMax rightDriveMotor2 = new CANSparkMax(4, MotorType.kBrushless);
+	CANSparkMax leftDriveMotor1 = new CANSparkMax(1, MotorType.kBrushless),
+	                        leftDriveMotor2 = new CANSparkMax(3, MotorType.kBrushless),
+	 						rightDriveMotor1 = new CANSparkMax(2, MotorType.kBrushless),
+	 						rightDriveMotor2 = new CANSparkMax(4, MotorType.kBrushless);
 
-	TalonSRX hogBearer = new TalonSRX(20);
+	TalonSRX hogBearer = new TalonSRX(10);
 	PigeonIMU hogEra = new PigeonIMU(hogBearer);
+
+	public static final double TICKS_PER_INCH = 2048/18.5;
 
 	public static Drivetrain getInstance() {
 		if(drivetrain == null){
@@ -88,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	public double getEnc(){
-		return 2.0;
+		return 0.0;
 		// return leftDriveMotor2.getSelectedSensorPosition(0);
 	}
 
