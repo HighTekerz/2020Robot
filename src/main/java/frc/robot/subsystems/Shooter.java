@@ -11,12 +11,13 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.MechanoidAtlas;
 
 public class Shooter extends SubsystemBase {
   
   // Unknown Numbers
-  private TalonFX leftFlywheel = new TalonFX(749);
-  private TalonFX rightFlywheel = new TalonFX(210);
+  private TalonFX leftFlywheel = new TalonFX(MechanoidAtlas.leftShooterMotor);
+  private TalonFX rightFlywheel = new TalonFX(MechanoidAtlas.rightShooterMotor);
 
   public static Shooter shooter;
 

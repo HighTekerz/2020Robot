@@ -17,6 +17,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.L;
+import frc.robot.MechanoidAtlas;
 
 public class Drivetrain extends SubsystemBase {
 	/**
@@ -24,12 +25,12 @@ public class Drivetrain extends SubsystemBase {
 	 */
 	public static Drivetrain drivetrain = null;
 	
-	TalonFX leftDriveMotor1 = new TalonFX(4);
-	TalonFX leftDriveMotor2 = new TalonFX(1);
-	TalonFX rightDriveMotor1 = new TalonFX(2);
-	TalonFX rightDriveMotor2 = new TalonFX(3);
+	TalonFX leftDriveMotor1 = new TalonFX(MechanoidAtlas.leftDriveMotor1);
+	TalonFX leftDriveMotor2 = new TalonFX(MechanoidAtlas.leftDriveMotor2);
+	TalonFX rightDriveMotor1 = new TalonFX(MechanoidAtlas.rightDriveMotor1);
+	TalonFX rightDriveMotor2 = new TalonFX(MechanoidAtlas.rightDriveMotor2);
 
-	TalonSRX hogBearer = new TalonSRX(20);
+	TalonSRX hogBearer = new TalonSRX(MechanoidAtlas.throatMotor);
 	PigeonIMU hogEra = new PigeonIMU(hogBearer);
 
 	public static Drivetrain getInstance() {
