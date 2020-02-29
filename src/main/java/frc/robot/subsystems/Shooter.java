@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.MechanoidAtlas;
 
@@ -28,6 +29,13 @@ public class Shooter extends SubsystemBase {
     return shooter;
   }
 
+  double p, 
+             i, 
+             d, 
+              loopLengthInSeconds;
+
+  private final PIDController pIDLoop = new PIDController(p,i,d, loopLengthInSeconds);
+
   /**
    * Creates a new Shooter.
    */
@@ -35,11 +43,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setSetpoint(double setpoint){
-    
-  }
-
-  public void startPid(){
-
+    pIDLoop.setSetpoint(setpoint);
   }
 
   public void stopPid(){
