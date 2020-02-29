@@ -77,9 +77,9 @@ public class RobotContainer {
     turn45DegreesLeft.whenPressed(new TurnByDegree(45, 0.3, false));
 
     DPadButton turn45DegreesRight = new DPadButton(meatStick, 0, 90);
-    turn45DegreesRight.whenPressed(new TurnByDegree(45, 0.3, true));    
+    turn45DegreesRight.whenPressed(new TurnByDegree(45, 0.3, true));
   }
-
+  
   public double getDriverLeftStickX(){
     return meatStick.getRawAxis(0);
   }

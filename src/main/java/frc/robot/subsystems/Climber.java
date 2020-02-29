@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.MechanoidAtlas;
 
 public class Climber extends SubsystemBase {
   
-  DoubleSolenoid climberPistons = new DoubleSolenoid(0, 1);
-  DigitalInput magnetSensor = new DigitalInput(0);
+  DoubleSolenoid climberPistons = new DoubleSolenoid(MechanoidAtlas.cliSol1, MechanoidAtlas.cliSol2);
+  DigitalInput magnetSensor = new DigitalInput(MechanoidAtlas.climberMagnetSensor);
 
   public static Climber climber = null;
 
