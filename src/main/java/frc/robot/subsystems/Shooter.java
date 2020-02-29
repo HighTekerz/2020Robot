@@ -43,6 +43,7 @@ public class Shooter extends SubsystemBase {
 
   public void stopPid(){
     leftFlywheel.set(TalonFXControlMode.Disabled, 0);
+    rightFlywheel.set(TalonFXControlMode.Disabled, 0);
   }
 
   
