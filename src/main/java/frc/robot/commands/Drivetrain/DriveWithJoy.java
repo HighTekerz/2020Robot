@@ -28,7 +28,7 @@ public class DriveWithJoy extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Drivetrain.getInstance().driveArcade(Robot.robotContainer.getDriverRightStickY(), Robot.robotContainer.getDriverLeftStickX());
+    Drivetrain.getInstance().driveModified(Robot.robotContainer.getDriverRightStickY(), Robot.robotContainer.getDriverLeftStickX());
   }
 
   // Called once the command ends or is interrupted.

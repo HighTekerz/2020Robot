@@ -32,7 +32,7 @@ public class DriveForDistance extends CommandBase {
 
   public DriveForDistance(double inchesToTravel, double speed){
     addRequirements(drivetrain);
-    this.ticksToTravel = inchesToTravel * Drivetrain.TICKS_PER_INCH;
+    this.ticksToTravel = inchesToTravel * Drivetrain.REVS_PER_INCH;
     this.speed = speed;
   }
 
@@ -40,18 +40,15 @@ public class DriveForDistance extends CommandBase {
   @Override
   public void initialize() {
     currentTicks = drivetrain.getEnc();
-    
-    if(speed <= 0 || ticksToTravel <= 0){
+    if (speed <= 0 || ticksToTravel <= 0) {
       foreward = false;
       speed = -Math.abs(speed);
       tickTarget = currentTicks - Math.abs(ticksToTravel);
-    } 
-    else {
+    } else {
       foreward = true;
       speed = Math.abs(speed);
       tickTarget = currentTicks + Math.abs(ticksToTravel);
     }
-    L.ogSD("Tick Target", tickTarget);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

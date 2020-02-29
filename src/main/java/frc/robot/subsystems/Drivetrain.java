@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -34,12 +35,17 @@ public class Drivetrain extends SubsystemBase {
 	CANSparkMax leftDriveMotor1 = new CANSparkMax(1, MotorType.kBrushless),
 	                        leftDriveMotor2 = new CANSparkMax(3, MotorType.kBrushless),
 	 						rightDriveMotor1 = new CANSparkMax(2, MotorType.kBrushless),
-	 						rightDriveMotor2 = new CANSparkMax(4, MotorType.kBrushless);
+							 rightDriveMotor2 = new CANSparkMax(4, MotorType.kBrushless);
+	CANEncoder leftEnc = leftDriveMotor1.getEncoder();
 
 	TalonSRX hogBearer = new TalonSRX(10);
 	PigeonIMU hogEra = new PigeonIMU(hogBearer);
 
-	public static final double TICKS_PER_INCH = 2048/18.5;
+	// Talons
+	// public static final double TICKS_PER_INCH = 2048/18.5;
+	
+	// Sparks
+	public static final double REVS_PER_INCH = 10.71/18.85;
 
 	public static Drivetrain getInstance() {
 		if(drivetrain == null){
@@ -58,6 +64,7 @@ public class Drivetrain extends SubsystemBase {
 		// rightDriveMotor1.set(ControlMode.PercentOutput, rightSpeed);
 		// rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
 
+		// Negative numbers make right go forward
 		rightDriveMotor1.set(rightSpeed);
 		rightDriveMotor2.set(rightSpeed);
 		leftDriveMotor1.set(leftSpeed);
@@ -67,12 +74,12 @@ public class Drivetrain extends SubsystemBase {
 	double leftSpeed;
 	double rightSpeed;
 	public void driveArcade(double throttle, double turn){
-		leftSpeed = throttle - turn;
-		rightSpeed = throttle + turn;
+		leftSpeed = throttle + turn;
+		rightSpeed = throttle - turn;
 		L.ogSD("Turn", turn);
 		L.ogSD("Throttle", throttle);
 
-		driveTank(-leftSpeed, rightSpeed);
+		driveTank(leftSpeed, -rightSpeed);
 	}
 
 	public void driveModified(double throttle, double turn){
@@ -83,14 +90,14 @@ public class Drivetrain extends SubsystemBase {
 			turn = 0;
 		}
 
-		leftSpeed = Math.pow((throttle - turn), 3);
-		rightSpeed = Math.pow((throttle + turn), 3);
+		leftSpeed = Math.pow((throttle + turn), 3);
+		rightSpeed = Math.pow((throttle - turn), 3);
 
-		driveTank(-leftSpeed, rightSpeed);
+		driveTank(leftSpeed, -rightSpeed);
 	}
 
 	public double getEnc(){
-		return 0.0;
+		return leftEnc.getPosition();
 		// return leftDriveMotor2.getSelectedSensorPosition(0);
 	}
 
