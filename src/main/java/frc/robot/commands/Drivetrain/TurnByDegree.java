@@ -8,6 +8,7 @@
 package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.L;
 import frc.robot.subsystems.Drivetrain;
 
 public class TurnByDegree extends CommandBase {
@@ -20,7 +21,7 @@ public class TurnByDegree extends CommandBase {
    * 
    */
   public TurnByDegree(double degreesToTurn, double speed, boolean clockwise) {
-    addRequirements(Drivetrain.getInstance());
+    addRequirements(dt);
     this.speed = speed;
     this.degreesToTurn = degreesToTurn;
     this.clockwise = clockwise;
@@ -38,12 +39,15 @@ public class TurnByDegree extends CommandBase {
       targetDegrees = currentDegrees + Math.abs(degreesToTurn);
       speed = -Math.abs(speed);
     }
+
+    L.ogSD("Degree Target", targetDegrees);
+    L.ogSD("Clockwise", clockwise);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    dt.setWheelSpeed(-speed, speed);
+    dt.driveArcade(0, speed);
   }
 
   // Called once the command ends or is interrupted.

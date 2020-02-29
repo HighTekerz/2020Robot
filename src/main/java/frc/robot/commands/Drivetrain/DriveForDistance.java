@@ -8,11 +8,13 @@
 package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.L;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveForDistance extends CommandBase {
 
-  private double ticksToTravel, speed, currentTicks, tickTarget;
+  private double speed,
+                         ticksToTravel, currentTicks, tickTarget;
   private boolean foreward;
   private Drivetrain drivetrain = Drivetrain.getInstance();
 
@@ -22,9 +24,15 @@ public class DriveForDistance extends CommandBase {
    * @param ticksToTravel Ticks to travel
    * @param speed speed to travel at
    */
-  public DriveForDistance(double ticksToTravel, double speed) {
+  public DriveForDistance(int ticksToTravel, double speed) {
     addRequirements(drivetrain);
     this.ticksToTravel = ticksToTravel;
+    this.speed = speed;
+  }
+
+  public DriveForDistance(double inchesToTravel, double speed){
+    addRequirements(drivetrain);
+    this.ticksToTravel = inchesToTravel * Drivetrain.REVS_PER_INCH;
     this.speed = speed;
   }
 
@@ -32,13 +40,11 @@ public class DriveForDistance extends CommandBase {
   @Override
   public void initialize() {
     currentTicks = drivetrain.getEnc();
-    
-    if(speed <= 0 || ticksToTravel <= 0){
+    if (speed <= 0 || ticksToTravel <= 0) {
       foreward = false;
       speed = -Math.abs(speed);
       tickTarget = currentTicks - Math.abs(ticksToTravel);
-    } 
-    else {
+    } else {
       foreward = true;
       speed = Math.abs(speed);
       tickTarget = currentTicks + Math.abs(ticksToTravel);
@@ -48,7 +54,7 @@ public class DriveForDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.setWheelSpeed(speed, speed);
+    drivetrain.driveArcade(speed, 0);
   }
 
   // Called once the command ends or is interrupted.

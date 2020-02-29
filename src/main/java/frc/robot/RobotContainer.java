@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Drivetrain.DriveForDistance;
 import frc.robot.commands.Drivetrain.DriveWithJoy;
+import frc.robot.commands.Drivetrain.TurnByDegree;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -66,21 +67,29 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // > > > >Example Button< < < <
-    // JoystickButton meatStickA = new JoystickButton(meatStick, joyButts.A_BUTTON);
-    // meatStickA.whenPressed(new Command());
-    L.ogSD("Drive -1000 ticks" , new DriveForDistance(-1000, .3));
+    DPadButton go2Feet = new DPadButton(meatStick, 0, 0);
+    go2Feet.whenPressed(new DriveForDistance(24.0, 0.3));
+
+    DPadButton goBack2Feet = new DPadButton(meatStick, 0, 180);
+    goBack2Feet.whenPressed(new DriveForDistance(-24.0, 0.3));
+
+    DPadButton turn45DegreesLeft = new DPadButton(meatStick, 0, 270);
+    turn45DegreesLeft.whenPressed(new TurnByDegree(45, 0.3, false));
+
+    DPadButton turn45DegreesRight = new DPadButton(meatStick, 0, 90);
+    turn45DegreesRight.whenPressed(new TurnByDegree(45, 0.3, true));
   }
   
   public double getDriverLeftStickX(){
-    return meatStick.getX(Hand.kLeft);
+    return meatStick.getRawAxis(0);
   }
 
   public double getDriverLeftStickY(){
-    return meatStick.getY(Hand.kLeft);
+    return meatStick.getRawAxis(1);
   }
 
   public double getDriverRightStickY(){
-    return meatStick.getY(Hand.kRight);
+    return -meatStick.getRawAxis(5);
   }
 
   /**
