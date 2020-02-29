@@ -32,6 +32,7 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter.
    */
   private Shooter() {
+    rightFlywheel.follow(leftFlywheel);
   }
 
   public void setSetpoint(double setpoint){
@@ -44,7 +45,6 @@ public class Shooter extends SubsystemBase {
 
   public void stopPid(){
     leftFlywheel.set(TalonFXControlMode.Disabled, 0);
-    rightFlywheel.set(TalonFXControlMode.Disabled, 0);
   }
 
   
