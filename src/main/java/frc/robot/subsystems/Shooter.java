@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.L;
+import frc.robot.utilities.L;
 import frc.robot.MechanoidAtlas;
 
 public class Shooter extends SubsystemBase {

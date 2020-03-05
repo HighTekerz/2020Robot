@@ -8,8 +8,8 @@
 package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.L;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.utilities.L;
 
 public class TurnByDegree extends CommandBase {
 
