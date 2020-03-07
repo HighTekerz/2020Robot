@@ -23,9 +23,9 @@ public class Shooter extends SubsystemBase {
 	private TalonFX leftFlywheel = new TalonFX(MechanoidAtlas.leftShooterMotor),
 			rightFlywheel = new TalonFX(MechanoidAtlas.rightShooterMotor);
 
-	public static final double POSITION1 = 30, 
-											POSITION2 = 30, 
-											POSITION3 = 30;
+	public static final double POSITION1SPEED = 30, 
+											POSITION2SPEED = 30, 
+											POSITION3SPEED = 30;
 
 	public static Shooter shooter;
 

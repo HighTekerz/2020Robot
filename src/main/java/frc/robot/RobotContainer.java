@@ -72,7 +72,7 @@ public class RobotContainer {
   Shooter shooter = Shooter.getInstance();
   private void configureButtonBindings() {
 
-    new JoystickButton(meatStick, joyButts.START).whenPressed(new InstantCommand(()-> shooter.setSetpoint(shooter.POSITION1)));
+    new JoystickButton(meatStick, joyButts.START).whenPressed(new InstantCommand(()-> shooter.setSetpoint(shooter.POSITION1SPEED)));
 
     // > > > >Example Button< < < <
     DPadButton go2Feet = new DPadButton(meatStick, 0, 0);
