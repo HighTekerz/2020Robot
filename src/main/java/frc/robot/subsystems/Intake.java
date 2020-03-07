@@ -10,10 +10,22 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
+
+  private static Intake intake = null;
+
+  public static Intake getInstance(){
+    if(intake == null){
+      return intake = new Intake();
+    }
+    else{
+      return intake;
+    }
+  }
+
   /**
    * Creates a new Intake.
    */
-  public Intake() {
+  private Intake() {
 
   }
 

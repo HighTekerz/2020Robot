@@ -22,7 +22,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Throat;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.WheelLooker;
 import frc.robot.subsystems.WheelSpinner;
 import frc.robot.utilities.DPadButton;
@@ -45,9 +45,8 @@ public class RobotContainer {
 
   private Drivetrain dt = Drivetrain.getInstance();
 
-  //Meat is driver, Beat is Co-Pilot
-  private Joystick meatStick = new Joystick(0);
-  private Joystick beatStick = new Joystick(1);
+  private Joystick driStick = new Joystick(0);
+  private Joystick coPStick = new Joystick(1);
   
   private static class joyButts{
     public static int A_BUTTON = 1, B_BUTTON = 2, X_BUTTON = 3, Y_BUTTON = 4, LEFT_BUMPER = 5, RIGHT_BUMPER = 6,
@@ -72,33 +71,31 @@ public class RobotContainer {
   Shooter shooter = Shooter.getInstance();
   private void configureButtonBindings() {
 
-    new JoystickButton(meatStick, joyButts.START).whenPressed(new InstantCommand(()-> shooter.setSetpoint(shooter.POSITION1SPEED)));
-
     // > > > >Example Button< < < <
-    DPadButton go2Feet = new DPadButton(meatStick, 0, 0);
+    DPadButton go2Feet = new DPadButton(driStick, 0, 0);
     go2Feet.whenPressed(new DriveForDistance(24.0, 0.3));
 
-    DPadButton goBack2Feet = new DPadButton(meatStick, 0, 180);
+    DPadButton goBack2Feet = new DPadButton(driStick, 0, 180);
     goBack2Feet.whenPressed(new DriveForDistance(-24.0, 0.3));
 
-    DPadButton turn45DegreesLeft = new DPadButton(meatStick, 0, 270);
+    DPadButton turn45DegreesLeft = new DPadButton(driStick, 0, 270);
     turn45DegreesLeft.whenPressed(new TurnByDegree(45, 0.3, false));
 
-    DPadButton turn45DegreesRight = new DPadButton(meatStick, 0, 90);
+    DPadButton turn45DegreesRight = new DPadButton(driStick, 0, 90);
     turn45DegreesRight.whenPressed(new TurnByDegree(45, 0.3, true));
 
   }
   
   public double getDriverLeftStickX(){
-    return meatStick.getRawAxis(0);
+    return driStick.getRawAxis(0);
   }
 
   public double getDriverLeftStickY(){
-    return meatStick.getRawAxis(1);
+    return driStick.getRawAxis(1);
   }
 
   public double getDriverRightStickY(){
-    return -meatStick.getRawAxis(5);
+    return -driStick.getRawAxis(5);
   }
 
   /**

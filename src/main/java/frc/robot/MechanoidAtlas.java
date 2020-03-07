@@ -22,7 +22,7 @@ public class MechanoidAtlas {
 
     public static int jeopardyMotor = 6;
 
-    public static int throatMotor = 7;
+    public static int indexMotor = 7;
 
     public static int intakeMotor = 8;
 
