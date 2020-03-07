@@ -5,42 +5,51 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.WheelSpinner;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.WheelLooker;
+import frc.robot.subsystems.WheelSpinner;
 
-public class SpinDownFlywheels extends CommandBase {
+public class JeopardySpin3Revs extends CommandBase {
 
-  Shooter shooter = Shooter.getInstance();
+  WheelSpinner wS = WheelSpinner.getInstance();
+  WheelLooker wL = WheelLooker.getInstance();
 
   /**
-   * Creates a new SpinDownFlywheels.
+   * Creates a new JeopardySpin3Revs.
    */
-  public SpinDownFlywheels() {
-    addRequirements(shooter);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public JeopardySpin3Revs() {
+    addRequirements(wL);
+    addRequirements(wS);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.stopPid();
+    wL.startCounting();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    wS.setSpeed(0.2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    wL.stopCounting();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(wL.counted3Spins()){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

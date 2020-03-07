@@ -19,14 +19,14 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.L;
+import frc.robot.utilities.L;
 import frc.robot.MechanoidAtlas;
 
 public class Drivetrain extends SubsystemBase {
 	/**
 	 * Creates a new Drivetrain.
 	 */
-	public static Drivetrain drivetrain = null;
+	private static Drivetrain drivetrain = null;
 	
 	// TalonFX leftDriveMotor1 = new TalonFX(4),
 	//  			 leftDriveMotor2 = new TalonFX(1),

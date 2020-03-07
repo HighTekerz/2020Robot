@@ -7,11 +7,17 @@
 
 package frc.robot;
 
+import java.util.Set;
+
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.commands.WinMatch;
+import frc.robot.commands.Shooter.PIDTuner;
+import frc.robot.utilities.L;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,6 +38,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    // new WinMatch().execute();
   }
 
   /**
@@ -87,6 +94,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    L.ogSD("Start PIDTuner", new PIDTuner());
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

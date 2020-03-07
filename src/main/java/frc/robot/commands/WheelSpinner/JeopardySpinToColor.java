@@ -5,41 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.WheelSpinner;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.WheelLooker;
+import frc.robot.subsystems.WheelSpinner;
 
-public class SpinUpFlywheels extends CommandBase {
-  Shooter shooter = Shooter.getInstance();
+public class JeopardySpinToColor extends CommandBase {
+
+  WheelSpinner wS = WheelSpinner.getInstance();
+  WheelLooker wL = WheelLooker.getInstance();
+
   /**
-   * Creates a new SpinUpFlywheels.
+   * Creates a new JeopardySpinToColor.
    */
-  public SpinUpFlywheels() {
-    addRequirements(shooter);  
+  public JeopardySpinToColor() {
+    addRequirements(wL);
+    addRequirements(wS);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setSetpoint(50);
-    shooter.startPid();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopPid();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (wL.colorAligned()) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 }

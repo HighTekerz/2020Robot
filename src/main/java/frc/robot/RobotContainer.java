@@ -17,13 +17,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Drivetrain.DriveForDistance;
 import frc.robot.commands.Drivetrain.DriveWithJoy;
 import frc.robot.commands.Drivetrain.TurnByDegree;
+import frc.robot.commands.Shooter.PIDTuner;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Throat;
 import frc.robot.subsystems.WheelLooker;
 import frc.robot.subsystems.WheelSpinner;
+import frc.robot.utilities.DPadButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -65,7 +69,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+  Shooter shooter = Shooter.getInstance();
   private void configureButtonBindings() {
+
+    new JoystickButton(meatStick, joyButts.START).whenPressed(new InstantCommand(()-> shooter.setSetpoint(shooter.POSITION1SPEED)));
+
     // > > > >Example Button< < < <
     DPadButton go2Feet = new DPadButton(meatStick, 0, 0);
     go2Feet.whenPressed(new DriveForDistance(24.0, 0.3));
@@ -78,6 +86,7 @@ public class RobotContainer {
 
     DPadButton turn45DegreesRight = new DPadButton(meatStick, 0, 90);
     turn45DegreesRight.whenPressed(new TurnByDegree(45, 0.3, true));
+
   }
   
   public double getDriverLeftStickX(){
