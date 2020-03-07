@@ -7,50 +7,81 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utilities.L;
 import frc.robot.MechanoidAtlas;
 
 public class Shooter extends SubsystemBase {
-  
-  // Unknown Numbers
-  private TalonFX leftFlywheel = new TalonFX(MechanoidAtlas.leftShooterMotor);
-  private TalonFX rightFlywheel = new TalonFX(MechanoidAtlas.rightShooterMotor);
 
-  public static Shooter shooter;
+	// Unknown Numbers
+	private TalonFX leftFlywheel = new TalonFX(MechanoidAtlas.leftShooterMotor),
+			rightFlywheel = new TalonFX(MechanoidAtlas.rightShooterMotor);
 
-  public static Shooter getInstance(){
-    if (shooter == null){
-      shooter = new Shooter();
-    }
-    return shooter;
-  }
+	public static final double POSITION1SPEED = 30, 
+											POSITION2SPEED = 30, 
+											POSITION3SPEED = 30;
 
-  /**
-   * Creates a new Shooter.
-   */
-  private Shooter() {
-    rightFlywheel.follow(leftFlywheel);
-  }
+	public static Shooter shooter;
 
-  public void setSetpoint(double setpoint){
-    
-  }
+	private boolean spinning = false;
 
-  public void startPid(){
+	public static Shooter getInstance() {
+		if (shooter == null) {
+			shooter = new Shooter();
+		}
+		return shooter;
+	}
 
-  }
+	
+	private double p, i, d, fF = 0.0, loopLengthInSeconds = .02;
 
-  public void stopPid(){
+	public final PIDController pIDLoop = new PIDController(p, i, d, loopLengthInSeconds);
+
+	/**
+	 * Creates a new Shooter.
+	 */
+	private Shooter() {
+		leftFlywheel.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+		pIDLoop.enableContinuousInput(-10000, 10000);
     leftFlywheel.set(TalonFXControlMode.Disabled, 0);
   }
 
-  
+	public void setSetpoint(double setpoint) {
+		pIDLoop.setSetpoint(setpoint);
+		spinning = true;
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	public void stopPID() {
+		spinning = false;
+		leftFlywheel.set(TalonFXControlMode.Disabled, 0);
+	}
+
+	public void runPID() {
+		double pIDOutput = pIDLoop.calculate(leftFlywheel.getSelectedSensorVelocity());
+		leftFlywheel.set(ControlMode.PercentOutput, pIDOutput + fF);
+		L.ogSD("PID Output", pIDOutput);
+		L.ogSD("LeftFly Velocity", leftFlywheel.getSelectedSensorVelocity());
+	}
+
+	public double getFF(){
+		return fF;
+	}
+
+	public void setFF(double newValue){
+		fF = newValue;
+	}
+
+
+	@Override
+	public void periodic() {
+		if (spinning){
+			runPID();
+		}	
+	}
 }
