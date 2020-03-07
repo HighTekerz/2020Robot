@@ -26,7 +26,7 @@ public class Drivetrain extends SubsystemBase {
 	/**
 	 * Creates a new Drivetrain.
 	 */
-	public static Drivetrain drivetrain = null;
+	private static Drivetrain drivetrain = null;
 	
 	// TalonFX leftDriveMotor1 = new TalonFX(4),
 	//  			 leftDriveMotor2 = new TalonFX(1),

@@ -7,14 +7,35 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.MechanoidAtlas;
 
 public class WheelSpinner extends SubsystemBase {
+
+  private TalonSRX jeopardyMotor = new TalonSRX(MechanoidAtlas.jeopardyMotor);
+
+  private static WheelSpinner wheelSpinner = null;
+
+  public static WheelSpinner getInstance(){
+    if(wheelSpinner == null){
+      return wheelSpinner = new WheelSpinner();
+    }
+    else{
+      return wheelSpinner;
+    }
+  }
+
   /**
    * Creates a new WheelSpinner.
    */
   public WheelSpinner() {
+  }
 
+  public void setSpeed(double speed){
+    jeopardyMotor.set(ControlMode.PercentOutput, speed);
   }
 
   @Override
