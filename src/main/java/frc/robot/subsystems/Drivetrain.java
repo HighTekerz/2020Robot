@@ -57,19 +57,22 @@ public class Drivetrain extends SubsystemBase {
 
 	private Drivetrain() {
 		// leftDriveMotor2.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+
+		leftDriveMotor2.follow(leftDriveMotor1);
+		rightDriveMotor2.follow(rightDriveMotor1);
 	}
 
 	public void driveTank(double leftSpeed, double rightSpeed){
 		// leftDriveMotor1.set(ControlMode.PercentOutput, leftSpeed);
-		// leftDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
+		//// leftDriveMotor2.set(ControlMode.PercentOutput, leftSpeed);
 		// rightDriveMotor1.set(ControlMode.PercentOutput, rightSpeed);
-		// rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
+		//// rightDriveMotor2.set(ControlMode.PercentOutput, rightSpeed);
 
 		// Negative numbers make right go forward
 		rightDriveMotor1.set(rightSpeed);
-		rightDriveMotor2.set(rightSpeed);
+		// rightDriveMotor2.set(rightSpeed);
 		leftDriveMotor1.set(leftSpeed);
-		leftDriveMotor2.set(leftSpeed);
+		// leftDriveMotor2.set(leftSpeed);
 	}
 
 	double leftSpeed;

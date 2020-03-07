@@ -49,7 +49,8 @@ public class Shooter extends SubsystemBase {
 	private Shooter() {
 		leftFlywheel.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 		pIDLoop.enableContinuousInput(-10000, 10000);
-	}
+    leftFlywheel.set(TalonFXControlMode.Disabled, 0);
+  }
 
 	public void setSetpoint(double setpoint) {
 		pIDLoop.setSetpoint(setpoint);
