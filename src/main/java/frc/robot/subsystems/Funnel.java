@@ -10,48 +10,46 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.MechanoidAtlas;
+import frc.robot.commands.Indexer.AutoSuck;
 
-public class Intake extends SubsystemBase {
+public class Funnel extends SubsystemBase {
 
-  Solenoid intakeSolenoid =  new Solenoid(MechanoidAtlas.intakeSolenoid);
+  TalonSRX funnelMotor = new TalonSRX(MechanoidAtlas.funnelMotor);
+   
+   public boolean shouldBeRunning = false;
 
-  TalonSRX intakeMotor = new TalonSRX(MechanoidAtlas.intakeMotor);
+   private static Funnel funnel = null;
 
-  private static Intake intake = null;
-
-  public static Intake getInstance(){
-    if(intake == null){
-      return intake = new Intake();
+  public static Funnel getInstance(){
+    if(funnel == null){
+      return funnel =  new Funnel();
     }
     else{
-      return intake;
+      return funnel;
     }
   }
 
   /**
-   * Creates a new Intake.
+   * Creates a new Funnel.
    */
-  private Intake() {
-
-  }
-
-  public void armsDown(){
-    intakeSolenoid.set(true);
-  }
-
-  public void armsUp(){
-    intakeSolenoid.set(false);
+  public Funnel() {
+    setDefaultCommand(new AutoSuck());
   }
 
   public void setSpeed(double speed){
-    intakeMotor.set(ControlMode.PercentOutput, speed);
+    funnelMotor.set(ControlMode.PercentOutput, speed);
   }
+ 
+  public void setShouldBeRunning(boolean shouldBeRunning) {
+    this.shouldBeRunning = shouldBeRunning;
+}
 
-  @Override
+@Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
 }

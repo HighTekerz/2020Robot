@@ -13,52 +13,51 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.MechanoidAtlas;
-import frc.robot.commands.Indexer.AutoSuck;
+import frc.robot.utilities.L;
 
 public class Indexer extends SubsystemBase {
 
-  TalonSRX indexMotor = new TalonSRX(MechanoidAtlas.indexMotor);
+    TalonSRX elevatorMotor = new TalonSRX(MechanoidAtlas.elevatorMotor);
 
-  DigitalInput ballSensor1 = new DigitalInput(MechanoidAtlas.throatSwitch1),
-   ballSensor2 = new DigitalInput(MechanoidAtlas.throatSwitch2),
-   ballSensor3 = new DigitalInput(MechanoidAtlas.throatSwitch3);
+    DigitalInput ballSensor1 = new DigitalInput(MechanoidAtlas.indexBeam1),
+            ballSensor2 = new DigitalInput(MechanoidAtlas.indexBeam2),
+            ballSensor3 = new DigitalInput(MechanoidAtlas.indexBeam3);
 
-  private static Indexer throat = null;
+    private static Indexer elevIndexer = null;
 
-  public static Indexer getInstance(){
-    if(throat == null){
-      return throat =  new Indexer();
+    public static Indexer getInstance() {
+        if (elevIndexer == null) {
+            return elevIndexer = new Indexer();
+        } else {
+            return elevIndexer;
+        }
     }
-    else{
-      return throat;
+
+    /**
+     * Creates a new ElevIndexer.
+     */
+    private Indexer() {
+
     }
-  }
 
-  /**
-   * Creates a new Indexer.
-   */
-  public Indexer() {
-    setDefaultCommand(new AutoSuck());
-  }
+    public void setSpeed(double speed) {
+        elevatorMotor.set(ControlMode.PercentOutput, speed);
+    }
 
-  public boolean getFirstSensor(){
-    return ballSensor1.get();
-  }
+    public boolean getThirdSensor() {
+        return ballSensor3.get();
+    }
 
-  public boolean getSecondSensor(){
-    return ballSensor2.get();
-  }
+    public boolean getFirstSensor() {
+        return ballSensor1.get();
+    }
 
-  public boolean getThirdSensor(){
-    return ballSensor3.get();
-  }
+    public boolean getSecondSensor() {
+        return ballSensor2.get();
+    }
 
-  public void setIndexSpeed(double speed){
-    indexMotor.set(ControlMode.PercentOutput, speed);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        L.ogSD("Sensor1", getFirstSensor());
+    }
 }
