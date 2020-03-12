@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.commands.CamControls;
+import frc.robot.commands.SolControl;
 import frc.robot.commands.WinMatch;
 import frc.robot.commands.Shooter.PIDTuner;
 import frc.robot.utilities.L;
@@ -94,7 +96,9 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    L.ogSD("SolControls", new SolControl());
     L.ogSD("Start PIDTuner", new PIDTuner());
+    L.ogSD("Camera Controls", new CamControls());
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

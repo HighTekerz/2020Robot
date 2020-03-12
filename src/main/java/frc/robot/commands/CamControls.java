@@ -5,64 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.CameraSystem;
 import frc.robot.utilities.L;
-import frc.robot.subsystems.Shooter;
 
-public class PIDTuner extends CommandBase {
+public class CamControls extends CommandBase {
+    CameraSystem camSys = CameraSystem.getInstance();
 
-  private Shooter shooter = Shooter.getInstance();
-
-  private double p, i, d, setpoint;
   /**
-   * Creates a new PIDTuner.
+   * Creates a new CamControls.
    */
-  public PIDTuner() {
-    addRequirements(shooter);
+  public CamControls() {
+    addRequirements(camSys);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    L.ogSD("PID [P]", 0);
-    L.ogSD("PID [I]", 0);
-    L.ogSD("PID [D]", 0);
-    L.ogSD("PID [F]", 0);
-    L.ogSD("PID [SP]", 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    setpoint = SmartDashboard.getNumber("PID [SP]", 0); 
-
-  //  if(setpoint == 0){
-    // shooter.stopPID();
-    p = SmartDashboard.getNumber("PID [P]", 0);
-    i = SmartDashboard.getNumber("PID [I]", 0);
-    d = SmartDashboard.getNumber("PID [D]", 0);
-     if(p != shooter.pIDLoop.getP() || i != shooter.pIDLoop.getI() || d != shooter.pIDLoop.getD()){
-      shooter.pIDLoop.setPID(p, i, d); 
-     }
-  //  }
-  //  else{
-  //    if(setpoint != shooter.pIDLoop.getSetpoint())
-    shooter.setSetpoint(setpoint);
-  //  }
+    L.ogSD("Camera DriverMode",new InstantCommand(()-> camSys.swapToDriverCam()));
+    L.ogSD("Camera LimeMode",new InstantCommand(()-> camSys.swapToLimeCam()));
+    L.ogSD("Light On", new InstantCommand(()-> camSys.setLightOn(true)));
+    L.ogSD("Light Off", new InstantCommand(()-> camSys.setLightOn(false)));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopPID();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -27,11 +27,11 @@ public class MechanoidAtlas {
     public static int intakeMotor = 8;
 
 
-    public static int intakeSolenoid = 0;
 
-    public static int cliSol1 = 1;
-    public static int cliSol2 = 2;
+    public static int cliSol1 = 0;
+    public static int cliSol2 = 1;
 
+    public static int intakeSolenoid = 2;
 
     public static int climberMagnetSensor = 0;
 
