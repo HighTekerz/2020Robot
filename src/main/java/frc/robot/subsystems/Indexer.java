@@ -44,16 +44,16 @@ public class Indexer extends SubsystemBase {
         elevatorMotor.set(ControlMode.PercentOutput, speed);
     }
 
-    public boolean getThirdSensor() {
-        return ballSensor3.get();
-    }
-
     public boolean getFirstSensor() {
         return ballSensor1.get();
     }
 
     public boolean getSecondSensor() {
         return ballSensor2.get();
+    }
+
+    public boolean getThirdSensor() {
+        return ballSensor3.get();
     }
 
     @Override

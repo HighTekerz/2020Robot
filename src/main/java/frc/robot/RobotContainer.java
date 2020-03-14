@@ -47,7 +47,7 @@ public class RobotContainer {
 
     private Drivetrain dt = Drivetrain.getInstance();
     private Indexer indexer = Indexer.getInstance();
-    private Funnel funnel = Funnel.getInstance();
+    // private Funnel funnel = Funnel.getInstance();
 
     private Joystick driStick = new Joystick(0);
     private Joystick coPStick = new Joystick(1);

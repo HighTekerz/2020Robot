@@ -30,6 +30,9 @@ public class L {
         else if(data instanceof Double){
             SmartDashboard.putNumber(title, (double)data);
         }
+        else if(data instanceof Boolean){
+            SmartDashboard.putBoolean(title, (boolean)data);
+        }
         else if(data instanceof Sendable){
             SmartDashboard.putData(title, (Sendable)data);
         }

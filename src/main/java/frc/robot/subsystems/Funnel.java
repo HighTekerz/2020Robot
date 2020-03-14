@@ -36,7 +36,7 @@ public class Funnel extends SubsystemBase {
    * Creates a new Funnel.
    */
   public Funnel() {
-    setDefaultCommand(new AutoSuck());
+    // setDefaultCommand(new AutoSuck());
   }
 
   public void setSpeed(double speed){
